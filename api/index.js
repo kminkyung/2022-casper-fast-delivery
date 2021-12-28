@@ -16,9 +16,9 @@ module.exports = () => {
       const token = req.session?.kakao?.token;
       console.log('token', token);
 
-      // if (!token) {
-      //   return res.redirect('/auth');
-      // }
+      if (!token) {
+        return res.redirect('/auth');
+      }
 
       const cars = await carService.findAll();
 
