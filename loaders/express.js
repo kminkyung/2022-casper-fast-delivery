@@ -1,13 +1,12 @@
-const expressLoader = require('./express');
+const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const logger = require('morgan');
 const routes = require('../api');
 
-module.exports = async ({ app }) => {
-  await expressLoader({ app });
-  console.info('Express Loaded 👍');
+module.exports = ({ app }) => {
+  app.use(logger('dev'));
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
