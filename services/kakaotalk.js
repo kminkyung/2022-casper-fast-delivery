@@ -8,26 +8,35 @@ module.exports = {
       원하는 옵션에 가까운 차량: ${favoriteCars.length}
     `;
 
-    const response = await axios({
-      method: 'POST',
-      url: 'https://kapi.kakao.com/v2/api/talk/memo/default/send',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: qs.stringify({
-        template_object: {
-          object_type: 'text',
-          text,
-          link: {
-            web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar',
-            mobile_web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar'
-          },
-          button_title: '바로 확인',
-        }
-      })
-    })
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: 'https://kapi.kakao.com/v2/api/talk/memo/default/send',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: qs.stringify({
+          template_object: {
+            object_type: 'text',
+            text,
+            link: {
+              web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar',
+              mobile_web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar'
+            },
+            button_title: '바로 확인',
+          }
+        })
+      });
+
+      console.log('response', response);
+
+    } catch (e) {
+      console.error('카카오톡 메세지 전송 실패');
+      console.error(e.data);
+      console.error(e.data.required_scopes);
+    }
 
 
-  console.log('response', response);
+
   }
 }
