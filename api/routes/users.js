@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const { Router } = require('express');
+const axios = require('axios');
+const config = require('../../config');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const route = Router();
 
-module.exports = router;
+module.exports = (app) => {
+  app.use('/users', route);
+
+  route.get('/logout', async (req, res) => {
+    const kakaoAuthURL = `https://kauth.kakao.com/oauth/logout?client_id=${config.kakao.clientID}&logout_redirect_uri=${config.kakao.logoutRedirectURI}`;
+    return res.redirect(kakaoAuthURL);
+  })
+}

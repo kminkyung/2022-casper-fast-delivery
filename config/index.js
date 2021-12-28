@@ -12,6 +12,7 @@ module.exports = {
   kakao: {
     clientID: process.env.KAKAO_REST_KEY,
     clientSecret: process.env.KAKAO_CLIENT_SECRET,
-    redirectURI: process.env.KAKAO_REDIRECT_URI
+    redirectURI: process.env.KAKAO_REDIRECT_URI,
+    logoutRedirectURI: process.env.KAKAO_LOGOUT_REDIRECT_URI
   }
 }
