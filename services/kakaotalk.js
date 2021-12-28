@@ -1,12 +1,16 @@
 const axios = require("axios");
-const qs = require("qs");
 
 module.exports = {
   async send({cars, favoriteCars, token}) {
-    const text = `
-      현재 빠른 출고 차량수: ${cars.length}
-      원하는 옵션에 가까운 차량: ${favoriteCars.length}
-    `;
+    const requestData = {
+      object_type: 'text',
+      text: `현재 빠른 출고 차량수: ${cars.length} \n원하는 옵션에 가까운 차량: ${favoriteCars.length}`,
+      link: {
+        web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar',
+        mobile_web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar'
+      },
+      button_title: '바로 확인'
+    }
 
     try {
       const response = await axios({
@@ -14,26 +18,16 @@ module.exports = {
         url: 'https://kapi.kakao.com/v2/api/talk/memo/default/send',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: qs.stringify({
-          template_object: {
-            object_type: 'text',
-            text,
-            link: {
-              web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar',
-              mobile_web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar'
-            },
-            button_title: '바로 확인',
-          }
-        })
+        data: `template_object=${JSON.stringify(requestData)}`
       });
 
-      console.log('response', response);
+      console.log('response.data.result_code', response.data.result_code);
 
     } catch (e) {
       console.error('카카오톡 메세지 전송 실패');
-      console.error(e.data);
-      console.error(e.data.required_scopes);
+      console.error(e.response.data);
     }
 
 
