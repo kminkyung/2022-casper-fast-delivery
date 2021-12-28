@@ -7,6 +7,8 @@ if (env.error) {
 }
 
 module.exports = {
+  port: process.env.PORT,
+
   kakao: {
     clientID: process.env.KAKAO_REST_KEY,
     clientSecret: process.env.KAKAO_CLIENT_SECRET,
