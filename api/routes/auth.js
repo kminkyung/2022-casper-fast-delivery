@@ -9,7 +9,7 @@ module.exports = (app) => {
   app.use('/auth', route);
 
   route.get('/',  (req, res) => {
-    const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${config.kakao.clientID}&redirect_uri=${config.kakao.redirectURI}&response_type=code`;
+    const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${config.kakao.clientID}&redirect_uri=${config.kakao.redirectURI}&response_type=code&scope=talk_message `;
     return res.redirect(kakaoAuthURL);
   });
 
