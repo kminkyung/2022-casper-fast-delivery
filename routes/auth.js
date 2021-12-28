@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const qs = require('qs');
 const axios = require('axios');
-const config = require('/config');
+const config = require('../config');
 
 router.get('/', function(req, res, next) {
   const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${config.kakao.clientID}&redirect_uri=${config.kakao.redirectURI}&response_type=code&scope=profile,account_email`;
