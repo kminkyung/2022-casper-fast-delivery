@@ -1,4 +1,5 @@
 const { Router } = require('express');
+
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const carService = require('../services/car');
@@ -21,7 +22,7 @@ module.exports = () => {
 
       const cars = await carService.findAll();
 
-      if (token) {
+      if (token && cars.length) {
         const favoriteCars = carService.filter(cars);
         await kakaotalkService.send({ cars, favoriteCars, token });
       }
@@ -33,7 +34,6 @@ module.exports = () => {
       return next(e);
     }
   })
-
 
   return app;
 }
