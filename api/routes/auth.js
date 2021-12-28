@@ -9,7 +9,6 @@ module.exports = (app) => {
   app.use('/auth', route);
 
   route.get('/',  (req, res) => {
-    console.log('>>>>>>>>');
     const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${config.kakao.clientID}&redirect_uri=${config.kakao.redirectURI}&response_type=code`;
     return res.redirect(kakaoAuthURL);
   });
