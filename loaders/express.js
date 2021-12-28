@@ -27,6 +27,7 @@ module.exports = ({ app }) => {
   app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
+    console.error(req.originUrl);
     next(err);
   })
 
