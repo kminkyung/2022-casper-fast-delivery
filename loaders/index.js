@@ -1,43 +1,10 @@
 const expressLoader = require('./express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const logger = require('morgan');
-const routes = require('../api');
+const jobLoader = require('./jobs');
 
 module.exports = async ({ app }) => {
   await expressLoader({ app });
   console.info('Express Loaded 👍');
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-
-  app.use(cookieParser());
-  app.use(express.static(path.join(__dirname, 'public')));
-
-  app.use(session({
-    secret: 'casper',
-    resave: true,
-    secure: false,
-    saveUninitialized: false,
-  }));
-
-  app.use('/', routes());
-
-  /* 404 */
-  app.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  })
-
-  /* error handler */
-  app.use((err, res, next) => {
-    res.status(err.status || 500);
-    res.json({
-      errors: {
-        message: err.message
-      }
-    })
-  });
+  await jobLoader();
+  console.info('Jobs loaded 👍');
 }
