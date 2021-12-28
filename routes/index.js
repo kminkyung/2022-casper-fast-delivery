@@ -7,12 +7,12 @@ router.get('/', async (req, res, next) => {
   const source = 'https://casper.hyundai.com/gw/wp/product/v2/product/fast-delivery?carCode=AX01&sortCode=20&deliveryAreaCode=B&deliveryLocalAreaCode=B0&carEngineCode=&carTrimCode=&exteriorColorCode=&interiorColorCode=&deliveryCenterCode=&pageNo=1&pageSize=18';
   const { data } = await axios.get(source);
   if (data.rspStatus.rspCode !== '0000') {
-    res.send('API 호출 실패');
+    return res.send('API 호출 실패');
   }
 
   const { searchcars: searchCars } = data.data;
   if (!searchCars.length) {
-    res.send('빠른 출고 차량 없음');
+    return res.send('빠른 출고 차량 없음');
   }
 
   const theCarImLookingFor = searchCars.filter(car =>
@@ -47,7 +47,7 @@ router.get('/', async (req, res, next) => {
   // const result = await axios(options);
   // console.log('result', result)
 
-  res.json(searchCars);
+  return res.json(searchCars);
   // res.render('index', { title: 'Express' });
 });
 

@@ -6,7 +6,7 @@ const config = require('../config');
 
 router.get('/', function(req, res, next) {
   const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${config.kakao.clientID}&redirect_uri=${config.kakao.redirectURI}&response_type=code&scope=profile,account_email`;
-  res.redirect(kakaoAuthURL);
+  return res.redirect(kakaoAuthURL);
 });
 
 router.get('/kakao', async (req, res) => {
@@ -27,7 +27,7 @@ router.get('/kakao', async (req, res) => {
       })
     })
   } catch (err) {
-    res.json(err.data);
+    return res.json(err.data);
   }
   console.log('token', token);
 
@@ -41,13 +41,13 @@ router.get('/kakao', async (req, res) => {
       }
     })
   } catch (e) {
-    res.json(e.data);
+    return res.json(e.data);
   }
   console.log(user);
 
   req.session.kakao = user.data;
 
-  res.send('success');
+  return res.send('success');
 })
 
 module.exports = router;
