@@ -15,16 +15,19 @@ module.exports = {
         Authorization: `Bearer ${token}`,
       },
       data: qs.stringify({
-        object_type: 'text',
-        text,
-        link: {
-          web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar',
-          mobile_web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar'
-        },
-        button_title: '바로 확인',
+        template_object: {
+          object_type: 'text',
+          text,
+          link: {
+            web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar',
+            mobile_web_url: 'https://casper.hyundai.com/vehicles/car-list/fastcar'
+          },
+          button_title: '바로 확인',
+        }
       })
     })
 
-    console.log('response', response);
+
+  console.log('response', response);
   }
 }
