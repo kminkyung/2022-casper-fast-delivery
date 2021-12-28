@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.redirect(kakaoAuthURL);
 });
 
-app.get('/kakao', async (req, res) => {
+router.get('/kakao', async (req, res) => {
   let token = '';
   try {
     token = await axios({
