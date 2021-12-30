@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const logger = require('morgan');
 const routes = require('../api');
 
@@ -19,6 +20,7 @@ module.exports = ({ app }) => {
     resave: true,
     secure: false,
     saveUninitialized: false,
+    store: new FileStore(),
   }));
 
   app.use('/', routes());
